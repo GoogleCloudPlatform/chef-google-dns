@@ -85,7 +85,12 @@ For complete details of the authentication cookbook, visit the
     A project resource. The project is a top level container for resources
     including Cloud DNS ManagedZones.
 * [`gdns_resource_record_set`](#gdns_resource_record_set) -
-    A unit of data that will be returned by the DNS servers.
+    A single DNS record that exists on a domain name (i.e. in a managed
+    zone).
+    This record defines the information about the domain and where the
+    domain / subdomains direct to.
+    The record will include the domain/subdomain name, a type (i.e. A, AAA,
+    CAA, MX, CNAME, NS, etc)
 
 
 ### gdns_managed_zone
@@ -279,7 +284,13 @@ of this object. The primary key will always be referred to by the initials of
 the resource followed by "_label"
 
 ### gdns_resource_record_set
-A unit of data that will be returned by the DNS servers.
+A single DNS record that exists on a domain name (i.e. in a managed zone).
+This record defines the information about the domain and where the
+domain / subdomains direct to.
+
+The record will include the domain/subdomain name, a type (i.e. A, AAA,
+CAA, MX, CNAME, NS, etc)
+
 
 #### Example
 
