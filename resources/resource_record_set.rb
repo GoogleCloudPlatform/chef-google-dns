@@ -367,7 +367,7 @@ module Google
         def prefetch_soa_resource
           resource = SOAResource.new(
             type: 'SOA',
-            name: "#{rrs_label.split('.').drop(1).join('.')}.",
+            name: "#{@new_resource.rrs_label.split('.').drop(1).join('.')}.",
             resource: @new_resource
           )
           result = fetch_wrapped_resource(resource, 'dns#resourceRecordSet',
