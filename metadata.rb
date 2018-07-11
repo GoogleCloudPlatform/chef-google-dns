@@ -1,4 +1,4 @@
-# Copyright 2017 Google Inc.
+# Copyright 2018 Google Inc.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -33,7 +33,7 @@ description 'A Chef cookbook to manage Google Cloud DNS resources'
 long_description '
     This cookbook provides the built-in types and services for Chef to manage
     Google Cloud DNS resources, as native Chef types.'
-version '0.1.0'
+version '0.1.1'
 depends 'google-gauth', '< 0.2.0'
 issues_url 'https://github.com/GoogleCloudPlatform/chef-google-dns/issues' \
   if respond_to?(:issues_url)

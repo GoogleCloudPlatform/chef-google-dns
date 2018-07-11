@@ -1,4 +1,4 @@
-# Copyright 2017 Google Inc.
+# Copyright 2018 Google Inc.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -29,11 +29,9 @@
 $LOAD_PATH.unshift ::File.expand_path('../libraries', ::File.dirname(__FILE__))
 
 require 'chef/resource'
-require 'google/dns/network/delete'
 require 'google/dns/network/get'
-require 'google/dns/network/post'
-require 'google/dns/network/put'
 require 'google/dns/property/integer'
+require 'google/dns/property/project_quota'
 require 'google/hash_utils'
 
 module Google
@@ -47,29 +45,9 @@ module Google
                Integer,
                coerce: ::Google::Dns::Property::Integer.coerce,
                desired_state: true
-      property :quota_managed_zones,
-               Integer,
-               coerce: ::Google::Dns::Property::Integer.coerce,
-               desired_state: true
-      property :quota_resource_records_per_rrset,
-               Integer,
-               coerce: ::Google::Dns::Property::Integer.coerce,
-               desired_state: true
-      property :quota_rrset_additions_per_change,
-               Integer,
-               coerce: ::Google::Dns::Property::Integer.coerce,
-               desired_state: true
-      property :quota_rrset_deletions_per_change,
-               Integer,
-               coerce: ::Google::Dns::Property::Integer.coerce,
-               desired_state: true
-      property :quota_rrsets_per_managed_zone,
-               Integer,
-               coerce: ::Google::Dns::Property::Integer.coerce,
-               desired_state: true
-      property :quota_total_rrdata_size_per_change,
-               Integer,
-               coerce: ::Google::Dns::Property::Integer.coerce,
+      property :quota,
+               [Hash, ::Google::Dns::Data::ProjectQuota],
+               coerce: ::Google::Dns::Property::ProjectQuota.coerce,
                desired_state: true
 
       property :credential, String, desired_state: false, required: true
@@ -94,40 +72,8 @@ module Google
           @current_resource = @new_resource.clone
           @current_resource.number =
             ::Google::Dns::Property::Integer.api_parse(fetch['number'])
-          @current_resource.quota_managed_zones =
-            ::Google::Dns::Property::Integer.api_parse(
-              ::Google::HashUtils.navigate(fetch, %w[quota managedZones])
-            )
-          @current_resource.quota_resource_records_per_rrset =
-            ::Google::Dns::Property::Integer.api_parse(
-              ::Google::HashUtils.navigate(
-                fetch, %w[quota resourceRecordsPerRrset]
-              )
-            )
-          @current_resource.quota_rrset_additions_per_change =
-            ::Google::Dns::Property::Integer.api_parse(
-              ::Google::HashUtils.navigate(
-                fetch, %w[quota rrsetAdditionsPerChange]
-              )
-            )
-          @current_resource.quota_rrset_deletions_per_change =
-            ::Google::Dns::Property::Integer.api_parse(
-              ::Google::HashUtils.navigate(
-                fetch, %w[quota rrsetDeletionsPerChange]
-              )
-            )
-          @current_resource.quota_rrsets_per_managed_zone =
-            ::Google::Dns::Property::Integer.api_parse(
-              ::Google::HashUtils.navigate(
-                fetch, %w[quota rrsetsPerManagedZone]
-              )
-            )
-          @current_resource.quota_total_rrdata_size_per_change =
-            ::Google::Dns::Property::Integer.api_parse(
-              ::Google::HashUtils.navigate(
-                fetch, %w[quota totalRrdataSizePerChange]
-              )
-            )
+          @current_resource.quota =
+            ::Google::Dns::Property::ProjectQuota.api_parse(fetch['quota'])
 
           update
         end
@@ -177,17 +123,7 @@ module Google
             name: resource.name,
             kind: 'dns#project',
             number: resource.number,
-            quota_managed_zones: resource.quota_managed_zones,
-            quota_resource_records_per_rrset:
-              resource.quota_resource_records_per_rrset,
-            quota_rrset_additions_per_change:
-              resource.quota_rrset_additions_per_change,
-            quota_rrset_deletions_per_change:
-              resource.quota_rrset_deletions_per_change,
-            quota_rrsets_per_managed_zone:
-              resource.quota_rrsets_per_managed_zone,
-            quota_total_rrdata_size_per_change:
-              resource.quota_total_rrdata_size_per_change
+            quota: resource.quota
           }.reject { |_, v| v.nil? }
         end
         # rubocop:enable Metrics/MethodLength
