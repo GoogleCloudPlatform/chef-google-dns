@@ -89,26 +89,11 @@ module Google
         def compare_fields(other)
           [
             { self: managed_zones, other: other.managed_zones },
-            {
-              self: resource_records_per_rrset,
-              other: other.resource_records_per_rrset
-            },
-            {
-              self: rrset_additions_per_change,
-              other: other.rrset_additions_per_change
-            },
-            {
-              self: rrset_deletions_per_change,
-              other: other.rrset_deletions_per_change
-            },
-            {
-              self: rrsets_per_managed_zone,
-              other: other.rrsets_per_managed_zone
-            },
-            {
-              self: total_rrdata_size_per_change,
-              other: other.total_rrdata_size_per_change
-            }
+            { self: resource_records_per_rrset, other: other.resource_records_per_rrset },
+            { self: rrset_additions_per_change, other: other.rrset_additions_per_change },
+            { self: rrset_deletions_per_change, other: other.rrset_deletions_per_change },
+            { self: rrsets_per_managed_zone, other: other.rrsets_per_managed_zone },
+            { self: total_rrdata_size_per_change, other: other.total_rrdata_size_per_change }
           ]
         end
       end
@@ -117,27 +102,17 @@ module Google
       # Data is coming from the GCP API
       class ProjectQuotaApi < ProjectQuota
         def initialize(args)
-          @managed_zones =
-            Google::Dns::Property::Integer.api_parse(args['managedZones'])
+          @managed_zones = Google::Dns::Property::Integer.api_parse(args['managedZones'])
           @resource_records_per_rrset =
-            Google::Dns::Property::Integer.api_parse(
-              args['resourceRecordsPerRrset']
-            )
+            Google::Dns::Property::Integer.api_parse(args['resourceRecordsPerRrset'])
           @rrset_additions_per_change =
-            Google::Dns::Property::Integer.api_parse(
-              args['rrsetAdditionsPerChange']
-            )
+            Google::Dns::Property::Integer.api_parse(args['rrsetAdditionsPerChange'])
           @rrset_deletions_per_change =
-            Google::Dns::Property::Integer.api_parse(
-              args['rrsetDeletionsPerChange']
-            )
-          @rrsets_per_managed_zone = Google::Dns::Property::Integer.api_parse(
-            args['rrsetsPerManagedZone']
-          )
+            Google::Dns::Property::Integer.api_parse(args['rrsetDeletionsPerChange'])
+          @rrsets_per_managed_zone =
+            Google::Dns::Property::Integer.api_parse(args['rrsetsPerManagedZone'])
           @total_rrdata_size_per_change =
-            Google::Dns::Property::Integer.api_parse(
-              args['totalRrdataSizePerChange']
-            )
+            Google::Dns::Property::Integer.api_parse(args['totalRrdataSizePerChange'])
         end
       end
 
@@ -145,28 +120,17 @@ module Google
       # Data is coming from the Chef catalog
       class ProjectQuotaCatalog < ProjectQuota
         def initialize(args)
-          @managed_zones =
-            Google::Dns::Property::Integer.catalog_parse(args[:managed_zones])
+          @managed_zones = Google::Dns::Property::Integer.catalog_parse(args[:managed_zones])
           @resource_records_per_rrset =
-            Google::Dns::Property::Integer.catalog_parse(
-              args[:resource_records_per_rrset]
-            )
+            Google::Dns::Property::Integer.catalog_parse(args[:resource_records_per_rrset])
           @rrset_additions_per_change =
-            Google::Dns::Property::Integer.catalog_parse(
-              args[:rrset_additions_per_change]
-            )
+            Google::Dns::Property::Integer.catalog_parse(args[:rrset_additions_per_change])
           @rrset_deletions_per_change =
-            Google::Dns::Property::Integer.catalog_parse(
-              args[:rrset_deletions_per_change]
-            )
+            Google::Dns::Property::Integer.catalog_parse(args[:rrset_deletions_per_change])
           @rrsets_per_managed_zone =
-            Google::Dns::Property::Integer.catalog_parse(
-              args[:rrsets_per_managed_zone]
-            )
+            Google::Dns::Property::Integer.catalog_parse(args[:rrsets_per_managed_zone])
           @total_rrdata_size_per_change =
-            Google::Dns::Property::Integer.catalog_parse(
-              args[:total_rrdata_size_per_change]
-            )
+            Google::Dns::Property::Integer.catalog_parse(args[:total_rrdata_size_per_change])
         end
       end
     end

@@ -54,19 +54,13 @@ module Google
       property :type,
                equal_to: %w[A AAAA CAA CNAME MX NAPTR NS PTR SOA SPF SRV TXT],
                coerce: ::Google::Dns::Property::Enum.coerce, desired_state: true
-      property :ttl,
-               Integer,
-               coerce: ::Google::Dns::Property::Integer.coerce,
-               desired_state: true
+      property :ttl, Integer, coerce: ::Google::Dns::Property::Integer.coerce, desired_state: true
       # target is Array of Google::Dns::Property::StringArray
-      property :target,
-               Array,
-               coerce: ::Google::Dns::Property::StringArray.coerce,
-               desired_state: true
+      property :target
+               Array, coerce: ::Google::Dns::Property::StringArray.coerce, desired_state: true
       property :managed_zone,
                [String, ::Google::Dns::Data::ManagZoneNameRef],
-               coerce: ::Google::Dns::Property::ManagZoneNameRef.coerce,
-               desired_state: true
+               coerce: ::Google::Dns::Property::ManagZoneNameRef.coerce, desired_state: true
 
       property :credential, String, desired_state: false, required: true
       property :project, String, desired_state: false, required: true
@@ -76,8 +70,7 @@ module Google
                                        'dns#resourceRecordSetsListResponse',
                                        'rrsets')
         if fetch.nil?
-          converge_by ['Creating gdns_resource_record_set',
-                       "[#{new_resource.name}]"].join do
+          converge_by "Creating gdns_resource_record_set[#{new_resource.name}]" do
             # TODO(nelsonjr): Show a list of variables to create
             # TODO(nelsonjr): Determine how to print green like update converge
             puts # making a newline until we find a better way TODO: find!
@@ -90,12 +83,9 @@ module Google
           end
         else
           @current_resource = @new_resource.clone
-          @current_resource.rrs_label =
-            ::Google::Dns::Property::String.api_parse(fetch['name'])
-          @current_resource.type =
-            ::Google::Dns::Property::Enum.api_parse(fetch['type'])
-          @current_resource.ttl =
-            ::Google::Dns::Property::Integer.api_parse(fetch['ttl'])
+          @current_resource.rrs_label = ::Google::Dns::Property::String.api_parse(fetch['name'])
+          @current_resource.type = ::Google::Dns::Property::Enum.api_parse(fetch['type'])
+          @current_resource.ttl = ::Google::Dns::Property::Integer.api_parse(fetch['ttl'])
           @current_resource.target =
             ::Google::Dns::Property::StringArray.api_parse(fetch['rrdatas'])
 
@@ -108,8 +98,7 @@ module Google
                                        'dns#resourceRecordSetsListResponse',
                                        'rrsets')
         unless fetch.nil?
-          converge_by ['Deleting gdns_resource_record_set',
-                       "[#{new_resource.name}]"].join do
+          converge_by "Deleting gdns_resource_record_set[#{new_resource.name}]" do
             change = create_change fetch, nil, @new_resource
             change_id = change['id'].to_i
             debug("created for transaction '#{change_id}' to complete")
@@ -479,8 +468,7 @@ module Google
         end
 
         def fetch_wrapped_resource(resource, kind, wrap_kind, wrap_path)
-          self.class.fetch_wrapped_resource(resource, kind, wrap_kind,
-                                            wrap_path)
+          self.class.fetch_wrapped_resource(resource, kind, wrap_kind, wrap_path)
         end
 
         def self.fetch_wrapped_resource(resource, kind, wrap_kind, wrap_path)

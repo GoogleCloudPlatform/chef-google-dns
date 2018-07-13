@@ -4,5 +4,4 @@
 
 ### Fixes
 
-- Changed quota_* fields to a Hash. All quota_ fields must now be keys in a
-  hash named `quota`
+- Changed quota_* fields to a Hash. All quota_ fields must now be keys in a hash named `quota`

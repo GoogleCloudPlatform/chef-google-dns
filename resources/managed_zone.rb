@@ -46,35 +46,23 @@ module Google
     class ManagedZone < Chef::Resource
       resource_name :gdns_managed_zone
 
-      property :description,
-               String,
-               coerce: ::Google::Dns::Property::String.coerce,
-               desired_state: true
-      property :dns_name,
-               String,
-               coerce: ::Google::Dns::Property::String.coerce,
-               desired_state: true
-      property :id,
-               Integer,
-               coerce: ::Google::Dns::Property::Integer.coerce,
-               desired_state: true
+      property :description
+               String, coerce: ::Google::Dns::Property::String.coerce, desired_state: true
+      property :dns_name
+               String, coerce: ::Google::Dns::Property::String.coerce, desired_state: true
+      property :id, Integer, coerce: ::Google::Dns::Property::Integer.coerce, desired_state: true
       property :mz_label,
                String,
                coerce: ::Google::Dns::Property::String.coerce,
                name_property: true, desired_state: true
       # name_servers is Array of Google::Dns::Property::StringArray
-      property :name_servers,
-               Array,
-               coerce: ::Google::Dns::Property::StringArray.coerce,
-               desired_state: true
+      property :name_servers
+               Array, coerce: ::Google::Dns::Property::StringArray.coerce, desired_state: true
       # name_server_set is Array of Google::Dns::Property::StringArray
-      property :name_server_set,
-               Array,
-               coerce: ::Google::Dns::Property::StringArray.coerce,
-               desired_state: true
-      property :creation_time,
-               Time,
-               coerce: ::Google::Dns::Property::Time.coerce, desired_state: true
+      property :name_server_set
+               Array, coerce: ::Google::Dns::Property::StringArray.coerce, desired_state: true
+      property :creation_time
+               Time, coerce: ::Google::Dns::Property::Time.coerce, desired_state: true
 
       property :credential, String, desired_state: false, required: true
       property :project, String, desired_state: false, required: true
@@ -98,20 +86,13 @@ module Google
           @current_resource = @new_resource.clone
           @current_resource.description =
             ::Google::Dns::Property::String.api_parse(fetch['description'])
-          @current_resource.dns_name =
-            ::Google::Dns::Property::String.api_parse(fetch['dnsName'])
-          @current_resource.id =
-            ::Google::Dns::Property::Integer.api_parse(fetch['id'])
-          @current_resource.mz_label =
-            ::Google::Dns::Property::String.api_parse(fetch['name'])
+          @current_resource.dns_name = ::Google::Dns::Property::String.api_parse(fetch['dnsName'])
+          @current_resource.id = ::Google::Dns::Property::Integer.api_parse(fetch['id'])
+          @current_resource.mz_label = ::Google::Dns::Property::String.api_parse(fetch['name'])
           @current_resource.name_servers =
-            ::Google::Dns::Property::StringArray.api_parse(
-              fetch['nameServers']
-            )
+            ::Google::Dns::Property::StringArray.api_parse(fetch['nameServers'])
           @current_resource.name_server_set =
-            ::Google::Dns::Property::StringArray.api_parse(
-              fetch['nameServerSet']
-            )
+            ::Google::Dns::Property::StringArray.api_parse(fetch['nameServerSet'])
           @current_resource.creation_time =
             ::Google::Dns::Property::Time.api_parse(fetch['creationTime'])
 

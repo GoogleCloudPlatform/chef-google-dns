@@ -41,14 +41,11 @@ module Google
     class Project < Chef::Resource
       resource_name :gdns_project
 
-      property :number,
-               Integer,
-               coerce: ::Google::Dns::Property::Integer.coerce,
-               desired_state: true
+      property :number
+               Integer, coerce: ::Google::Dns::Property::Integer.coerce, desired_state: true
       property :quota,
                [Hash, ::Google::Dns::Data::ProjectQuota],
-               coerce: ::Google::Dns::Property::ProjectQuota.coerce,
-               desired_state: true
+               coerce: ::Google::Dns::Property::ProjectQuota.coerce, desired_state: true
 
       property :credential, String, desired_state: false, required: true
       property :project, String, desired_state: false, required: true
@@ -70,8 +67,7 @@ module Google
           end
         else
           @current_resource = @new_resource.clone
-          @current_resource.number =
-            ::Google::Dns::Property::Integer.api_parse(fetch['number'])
+          @current_resource.number = ::Google::Dns::Property::Integer.api_parse(fetch['number'])
           @current_resource.quota =
             ::Google::Dns::Property::ProjectQuota.api_parse(fetch['quota'])
 
