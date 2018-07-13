@@ -19,40 +19,6 @@ This cookbook was tested on the following operating systems:
 * openSUSE 13
 * Windows Server 2008 R2, 2012 R2, 2012 R2 Core, 2016 R2, 2016 R2 Core
 
-## Example
-
-```ruby
-gauth_credential 'mycred' do
-  action :serviceaccount
-  path ENV['CRED_PATH'] # e.g. '/path/to/my_account.json'
-  scopes [
-    'https://www.googleapis.com/auth/ndev.clouddns.readwrite'
-  ]
-end
-
-gdns_managed_zone 'testzone-3-com' do
-  action :create
-  dns_name 'test.somewild-example.com.'
-  description 'Test Example Zone'
-  credential 'mycred'
-  project ENV['PROJECT'] # ex: 'my-test-project'
-end
-
-gdns_resource_record_set 'www.testzone-4.com.' do
-  action :create
-  managed_zone 'testzone-3-com'
-  type 'A'
-  ttl 600
-  target [
-    '10.1.2.3',
-    '40.5.6.7',
-    '80.9.10.11'
-  ]
-  project ENV['PROJECT'] # ex: 'my-test-project'
-  credential 'mycred'
-end
-```
-
 ## Credentials
 
 All Google Cloud Platform cookbooks use an unified authentication mechanism,
