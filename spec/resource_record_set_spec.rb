@@ -336,9 +336,7 @@ context 'gdns_resource_record_set' do
                 chef_run.find_resource(:gdns_resource_record_set, 'title0')
               end
 
-              it do
-                is_expected.to have_attributes(rrs_label: 'test name#0 data')
-              end
+              it { is_expected.to have_attributes(rrs_label: 'test name#0 data') }
 
               it { is_expected.to have_attributes(type: 'A') }
 
@@ -357,9 +355,7 @@ context 'gdns_resource_record_set' do
                 chef_run.find_resource(:gdns_resource_record_set, 'title1')
               end
 
-              it do
-                is_expected.to have_attributes(rrs_label: 'test name#1 data')
-              end
+              it { is_expected.to have_attributes(rrs_label: 'test name#1 data') }
 
               it { is_expected.to have_attributes(type: 'AAAA') }
 
@@ -378,9 +374,7 @@ context 'gdns_resource_record_set' do
                 chef_run.find_resource(:gdns_resource_record_set, 'title2')
               end
 
-              it do
-                is_expected.to have_attributes(rrs_label: 'test name#2 data')
-              end
+              it { is_expected.to have_attributes(rrs_label: 'test name#2 data') }
 
               it { is_expected.to have_attributes(type: 'CAA') }
 

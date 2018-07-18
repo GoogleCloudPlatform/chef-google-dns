@@ -134,14 +134,9 @@ context 'gdns_managed_zone' do
                 chef_run.find_resource(:gdns_managed_zone, 'title0')
               end
 
-              it do
-                is_expected
-                  .to have_attributes(description: 'test description#0 data')
-              end
+              it { is_expected.to have_attributes(description: 'test description#0 data') }
 
-              it do
-                is_expected.to have_attributes(dns_name: 'test dns_name#0 data')
-              end
+              it { is_expected.to have_attributes(dns_name: 'test dns_name#0 data') }
 
               it { is_expected.to have_attributes(mz_label: 'title0') }
 
@@ -153,20 +148,13 @@ context 'gdns_managed_zone' do
                 chef_run.find_resource(:gdns_managed_zone, 'title1')
               end
 
-              it do
-                is_expected
-                  .to have_attributes(description: 'test description#1 data')
-              end
+              it { is_expected.to have_attributes(description: 'test description#1 data') }
 
-              it do
-                is_expected.to have_attributes(dns_name: 'test dns_name#1 data')
-              end
+              it { is_expected.to have_attributes(dns_name: 'test dns_name#1 data') }
 
               it { is_expected.to have_attributes(mz_label: 'title1') }
 
-              it do
-                is_expected.to have_attributes(name_server_set: %w[rr ss tt])
-              end
+              it { is_expected.to have_attributes(name_server_set: %w[rr ss tt]) }
             end
 
             context 'gdns_managed_zone[title2]' do
@@ -174,20 +162,13 @@ context 'gdns_managed_zone' do
                 chef_run.find_resource(:gdns_managed_zone, 'title2')
               end
 
-              it do
-                is_expected
-                  .to have_attributes(description: 'test description#2 data')
-              end
+              it { is_expected.to have_attributes(description: 'test description#2 data') }
 
-              it do
-                is_expected.to have_attributes(dns_name: 'test dns_name#2 data')
-              end
+              it { is_expected.to have_attributes(dns_name: 'test dns_name#2 data') }
 
               it { is_expected.to have_attributes(mz_label: 'title2') }
 
-              it do
-                is_expected.to have_attributes(name_server_set: %w[oo pp qq rr])
-              end
+              it { is_expected.to have_attributes(name_server_set: %w[oo pp qq rr]) }
             end
           end
 
@@ -283,18 +264,11 @@ context 'gdns_managed_zone' do
                 chef_run.find_resource(:gdns_managed_zone, 'title0')
               end
 
-              it do
-                is_expected
-                  .to have_attributes(description: 'test description#0 data')
-              end
+              it { is_expected.to have_attributes(description: 'test description#0 data') }
 
-              it do
-                is_expected.to have_attributes(dns_name: 'test dns_name#0 data')
-              end
+              it { is_expected.to have_attributes(dns_name: 'test dns_name#0 data') }
 
-              it do
-                is_expected.to have_attributes(mz_label: 'test name#0 data')
-              end
+              it { is_expected.to have_attributes(mz_label: 'test name#0 data') }
 
               it { is_expected.to have_attributes(name_server_set: %w[uu vv]) }
             end
@@ -304,22 +278,13 @@ context 'gdns_managed_zone' do
                 chef_run.find_resource(:gdns_managed_zone, 'title1')
               end
 
-              it do
-                is_expected
-                  .to have_attributes(description: 'test description#1 data')
-              end
+              it { is_expected.to have_attributes(description: 'test description#1 data') }
 
-              it do
-                is_expected.to have_attributes(dns_name: 'test dns_name#1 data')
-              end
+              it { is_expected.to have_attributes(dns_name: 'test dns_name#1 data') }
 
-              it do
-                is_expected.to have_attributes(mz_label: 'test name#1 data')
-              end
+              it { is_expected.to have_attributes(mz_label: 'test name#1 data') }
 
-              it do
-                is_expected.to have_attributes(name_server_set: %w[rr ss tt])
-              end
+              it { is_expected.to have_attributes(name_server_set: %w[rr ss tt]) }
             end
 
             context 'gdns_managed_zone[title2]' do
@@ -327,22 +292,13 @@ context 'gdns_managed_zone' do
                 chef_run.find_resource(:gdns_managed_zone, 'title2')
               end
 
-              it do
-                is_expected
-                  .to have_attributes(description: 'test description#2 data')
-              end
+              it { is_expected.to have_attributes(description: 'test description#2 data') }
 
-              it do
-                is_expected.to have_attributes(dns_name: 'test dns_name#2 data')
-              end
+              it { is_expected.to have_attributes(dns_name: 'test dns_name#2 data') }
 
-              it do
-                is_expected.to have_attributes(mz_label: 'test name#2 data')
-              end
+              it { is_expected.to have_attributes(mz_label: 'test name#2 data') }
 
-              it do
-                is_expected.to have_attributes(name_server_set: %w[oo pp qq rr])
-              end
+              it { is_expected.to have_attributes(name_server_set: %w[oo pp qq rr]) }
             end
           end
 
@@ -461,14 +417,9 @@ context 'gdns_managed_zone' do
             expect(chef_run).to create(:gdns_managed_zone,
                                        'title0')
           end
-          it do
-            is_expected
-              .to have_attributes(description: 'test description#0 data')
-          end
+          it { is_expected.to have_attributes(description: 'test description#0 data') }
 
-          it do
-            is_expected.to have_attributes(dns_name: 'test dns_name#0 data')
-          end
+          it { is_expected.to have_attributes(dns_name: 'test dns_name#0 data') }
 
           it { is_expected.to have_attributes(mz_label: 'title0') }
 
@@ -552,14 +503,9 @@ context 'gdns_managed_zone' do
             expect(chef_run).to create(:gdns_managed_zone,
                                        'title0')
           end
-          it do
-            is_expected
-              .to have_attributes(description: 'test description#0 data')
-          end
+          it { is_expected.to have_attributes(description: 'test description#0 data') }
 
-          it do
-            is_expected.to have_attributes(dns_name: 'test dns_name#0 data')
-          end
+          it { is_expected.to have_attributes(dns_name: 'test dns_name#0 data') }
 
           it { is_expected.to have_attributes(mz_label: 'test name#0 data') }
 
