@@ -51,6 +51,11 @@ module Google
       property :project, String, desired_state: false, required: true
 
       action :create do
+        Chef.deprecated(:generic,
+                        ["gdns_project has been deprecated.",
+                         "Please use the Project Name instead."
+                        ].join(" "))
+
         fetch = fetch_resource(@new_resource, self_link(@new_resource),
                                'dns#project')
         if fetch.nil?
