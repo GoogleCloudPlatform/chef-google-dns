@@ -46,9 +46,9 @@ module Google
     class ManagedZone < Chef::Resource
       resource_name :gdns_managed_zone
 
-      property :description
+      property :description,
                String, coerce: ::Google::Dns::Property::String.coerce, desired_state: true
-      property :dns_name
+      property :dns_name,
                String, coerce: ::Google::Dns::Property::String.coerce, desired_state: true
       property :id, Integer, coerce: ::Google::Dns::Property::Integer.coerce, desired_state: true
       property :mz_label,
@@ -56,12 +56,12 @@ module Google
                coerce: ::Google::Dns::Property::String.coerce,
                name_property: true, desired_state: true
       # name_servers is Array of Google::Dns::Property::StringArray
-      property :name_servers
+      property :name_servers,
                Array, coerce: ::Google::Dns::Property::StringArray.coerce, desired_state: true
       # name_server_set is Array of Google::Dns::Property::StringArray
-      property :name_server_set
+      property :name_server_set,
                Array, coerce: ::Google::Dns::Property::StringArray.coerce, desired_state: true
-      property :creation_time
+      property :creation_time,
                Time, coerce: ::Google::Dns::Property::Time.coerce, desired_state: true
 
       property :credential, String, desired_state: false, required: true
