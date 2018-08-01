@@ -56,7 +56,7 @@ module Google
                coerce: ::Google::Dns::Property::Enum.coerce, desired_state: true
       property :ttl, Integer, coerce: ::Google::Dns::Property::Integer.coerce, desired_state: true
       # target is Array of Google::Dns::Property::StringArray
-      property :target
+      property :target,
                Array, coerce: ::Google::Dns::Property::StringArray.coerce, desired_state: true
       property :managed_zone,
                [String, ::Google::Dns::Data::ManagZoneNameRef],

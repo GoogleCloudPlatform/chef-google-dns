@@ -41,7 +41,7 @@ module Google
     class Project < Chef::Resource
       resource_name :gdns_project
 
-      property :number
+      property :number,
                Integer, coerce: ::Google::Dns::Property::Integer.coerce, desired_state: true
       property :quota,
                [Hash, ::Google::Dns::Data::ProjectQuota],
