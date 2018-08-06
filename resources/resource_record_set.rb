@@ -59,8 +59,8 @@ module Google
       property :target,
                Array, coerce: ::Google::Dns::Property::StringArray.coerce, desired_state: true
       property :managed_zone,
-               [String, ::Google::Dns::Data::ManagZoneNameRef],
-               coerce: ::Google::Dns::Property::ManagZoneNameRef.coerce, desired_state: true
+               [String, ::Google::Dns::Data::ManagedZoneNameRef],
+               coerce: ::Google::Dns::Property::ManagedZoneNameRef.coerce, desired_state: true
 
       property :credential, String, desired_state: false, required: true
       property :project, String, desired_state: false, required: true
