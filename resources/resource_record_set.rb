@@ -94,7 +94,8 @@ module Google
       end
 
       action :delete do
-        fetch = fetch_wrapped_resource(@new_resource, 'dns#resourceRecordSet',
+        fetch = fetch_wrapped_resource(@new_resource,
+                                       'dns#resourceRecordSet',
                                        'dns#resourceRecordSetsListResponse',
                                        'rrsets')
         unless fetch.nil?

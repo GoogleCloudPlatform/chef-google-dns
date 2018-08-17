@@ -68,8 +68,7 @@ module Google
       property :project, String, desired_state: false, required: true
 
       action :create do
-        fetch = fetch_resource(@new_resource, self_link(@new_resource),
-                               'dns#managedZone')
+        fetch = fetch_resource(@new_resource, self_link(@new_resource), 'dns#managedZone')
         if fetch.nil?
           converge_by "Creating gdns_managed_zone[#{new_resource.name}]" do
             # TODO(nelsonjr): Show a list of variables to create
@@ -101,8 +100,7 @@ module Google
       end
 
       action :delete do
-        fetch = fetch_resource(@new_resource, self_link(@new_resource),
-                               'dns#managedZone')
+        fetch = fetch_resource(@new_resource, self_link(@new_resource), 'dns#managedZone')
         unless fetch.nil?
           converge_by "Deleting gdns_managed_zone[#{new_resource.name}]" do
             delete_req = ::Google::Dns::Network::Delete.new(
