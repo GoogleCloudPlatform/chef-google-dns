@@ -56,8 +56,7 @@ module Google
                          "Please use the Project Name instead."
                         ].join(" "))
 
-        fetch = fetch_resource(@new_resource, self_link(@new_resource),
-                               'dns#project')
+        fetch = fetch_resource(@new_resource, self_link(@new_resource), 'dns#project')
         if fetch.nil?
           converge_by "Creating gdns_project[#{new_resource.name}]" do
             # TODO(nelsonjr): Show a list of variables to create
@@ -81,8 +80,7 @@ module Google
       end
 
       action :delete do
-        fetch = fetch_resource(@new_resource, self_link(@new_resource),
-                               'dns#project')
+        fetch = fetch_resource(@new_resource, self_link(@new_resource), 'dns#project')
         unless fetch.nil?
           converge_by "Deleting gdns_project[#{new_resource.name}]" do
             delete_req = ::Google::Dns::Network::Delete.new(
