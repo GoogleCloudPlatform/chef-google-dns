@@ -81,9 +81,6 @@ For complete details of the authentication cookbook, visit the
     A zone is a subtree of the DNS namespace under one administrative
     responsibility. A ManagedZone is a resource that represents a DNS zone
     hosted by the Cloud DNS service.
-* [`gdns_project`](#gdns_project) -
-    A project resource. The project is a top level container for resources
-    including Cloud DNS ManagedZones.
 * [`gdns_resource_record_set`](#gdns_resource_record_set) -
     A single DNS record that exists on a domain name (i.e. in a managed zone).
     This record defines the information about the domain and where the
@@ -194,93 +191,6 @@ end
 
 #### Label
 Set the `mz_label` property when attempting to set primary key
-of this object. The primary key will always be referred to by the initials of
-the resource followed by "_label"
-
-### gdns_project
-A project resource. The project is a top level container for resources
-including Cloud DNS ManagedZones.
-
-
-#### Example
-
-```ruby
-# Ensures a project exists and has the correct values.
-#
-# All project settings are read-only, yet we are setting them anyway. Chef will
-# use these values to check if they match, and fail the run otherwise.
-#
-# This important to ensure that your project quotas are set properly and avoid
-# discrepancies from it to fail in production.
-gdns_project 'google.com:graphite-playground' do
-  quota_managed_zones 10_000
-  quota_total_rrdata_size_per_change 100_000
-  project ENV['PROJECT'] # ex: 'my-test-project'
-  credential 'mycred'
-end
-
-```
-
-#### Reference
-
-```ruby
-gdns_project 'id-for-resource' do
-  number     integer
-  quota      {
-    managed_zones                integer,
-    resource_records_per_rrset   integer,
-    rrset_additions_per_change   integer,
-    rrset_deletions_per_change   integer,
-    rrsets_per_managed_zone      integer,
-    total_rrdata_size_per_change integer,
-  }
-  project    string
-  credential reference to gauth_credential
-end
-```
-
-#### Actions
-
-* `create` -
-  Converges the `gdns_project` resource into the final
-  state described within the block. If the resource does not exist, Chef will
-  attempt to create it.
-* `delete` -
-  Ensures the `gdns_project` resource is not present.
-  If the resource already exists Chef will attempt to delete it.
-
-#### Properties
-
-* `number` -
-  Output only. Unique numeric identifier for the resource; defined by the server.
-
-* `quota` -
-  Output only. Quota allowed in project
-
-* `quota/managed_zones`
-  Output only. Maximum allowed number of managed zones in the project.
-
-* `quota/resource_records_per_rrset`
-  Output only. Maximum allowed number of ResourceRecords per ResourceRecordSet.
-
-* `quota/rrset_additions_per_change`
-  Output only. Maximum allowed number of ResourceRecordSets to add per
-  ChangesCreateRequest.
-
-* `quota/rrset_deletions_per_change`
-  Output only. Maximum allowed number of ResourceRecordSets to delete per
-  ChangesCreateRequest.
-
-* `quota/rrsets_per_managed_zone`
-  Output only. Maximum allowed number of ResourceRecordSets per zone in the
-  project.
-
-* `quota/total_rrdata_size_per_change`
-  Output only. Maximum allowed size for total rrdata in one ChangesCreateRequest
-  in bytes.
-
-#### Label
-Set the `p_label` property when attempting to set primary key
 of this object. The primary key will always be referred to by the initials of
 the resource followed by "_label"
 
