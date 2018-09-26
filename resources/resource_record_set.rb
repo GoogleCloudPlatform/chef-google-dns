@@ -239,21 +239,18 @@ module Google
           Chef::Log.debug(message)
         end
 
-        def self.collection(data, extra = '', extra_data = {})
+        def self.collection(data)
           URI.join(
             'https://www.googleapis.com/dns/v1/',
             expand_variables(
-              [
-                'projects/{{project}}/managedZones/{{managed_zone}}/changes',
-                extra
-              ].join,
-              data, extra_data
+              'projects/{{project}}/managedZones/{{managed_zone}}/changes',
+              data
             )
           )
         end
 
-        def collection(data, extra = '', extra_data = {})
-          self.class.collection(data, extra, extra_data)
+        def collection(data)
+          self.class.collection(data)
         end
 
         def self.self_link(data)
@@ -429,7 +426,7 @@ module Google
 
         def get_change_status(change_id, resource)
           change_req = ::Google::Dns::Network::Get.new(
-            collection(resource, '/{{id}}', id: change_id), fetch_auth(resource)
+            "#{collection(resource)}/#{change_id}", fetch_auth(resource)
           )
           return_if_change_object(change_req.send)['status']
         end
